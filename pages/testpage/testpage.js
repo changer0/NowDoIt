@@ -6,21 +6,21 @@ Page({
    */
   data: {
     bmobdata: '',
-    list:''
+    list: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var list;
+    var listtemp = [{ id: options.id, name: '测试' }, { id: options.id, name: '测试' }, { id: options.id, name: '测试' }, { id: options.id, name: '测试' }];
     console.log("onLoad")
-    for (var i = 0; i < 20; i++) {
-      list[i].channel_id = options.id;
-      list[i].name = "测试" + i;
-    }
+    // for (var i = 0; i < listtemp.length; i++) {
+    //   listtemp[i].id = options.id;
+    //   listtemp[i].name = "测试" + i;
+    // }
     this.setData({
-      list:list
+      list: listtemp
     })
   },
 

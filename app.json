@@ -1,8 +1,12 @@
 {
   "pages": [
+    
+    "pages/applylist/applaylist",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/testpage/testpage"
+    "pages/testpage/testpage",
+    "pages/applydetail/applydetail"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
