@@ -2,3 +2,8 @@
 <button bindtap='savedata'>保存数据</button>
  <button bindtap='getdata'>获取数据</button>
   <text>{{bmobdata}}</text>
+ <button bindtap='sendEmail'>测试发送通知</button>
+<block wx:for="{{list}}"></block>
+<navigator url="../testpage/testpage?id={{item.channel_id}}" hover-class="navigator-hover">
+    <text class="title">{{item.name}}</text>
+</navigator>

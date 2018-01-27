@@ -5,15 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bmobdata: ''
+    bmobdata: '',
+    list:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var list;
     console.log("onLoad")
-
+    for (var i = 0; i < 20; i++) {
+      list[i].channel_id = options.id;
+      list[i].name = "测试" + i;
+    }
+    this.setData({
+      list:list
+    })
   },
 
   /**
@@ -113,5 +121,53 @@ Page({
         })
       }
     });
+  },
+  sendEmail: function() {
+    var Bmob = require('../../utils/bmob.js');
+    Bmob.User.requestEmailVerify("1814241743@qq.com", {
+      success: function () {
+        // Password reset request was sent successfully
+        console.log("成功发送");
+        Bmob.User.fe
+      },
+      error: function (error) {
+        // Show the error message somewhere
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+    var temp = {
+      "touser": "oUxY3wxmlCiTUOPcNGv5YENfP5mI",
+      "template_id": "-ERkPwp0ntimqH39bggQc_Pj55a18CYLpj-Ert8-c8Y",
+      "url": "https://www.baidu.com",
+      "data": {
+        "first": {
+          "value": "您好，Restful 失效，请登录控制台查看。",
+          "color": "#c00"
+        },
+        "keyword1": {
+          "value": "Restful 失效"
+        },
+        "keyword2": {
+          "value": "2017-07-03 16:13:01"
+        },
+        "keyword3": {
+          "value": "高"
+        },
+        "remark": {
+          "value": "如果您十分钟内再次收到此信息，请及时处理。"
+        }
+      }
+    }
+    console.log(temp);
+    Bmob.sendMasterMessage(temp).then(function (obj) {
+      console.log('发送成功');
+
+
+    }, function (err) {
+
+      common.showTip('失败' + err);
+    });
+
   }
 })
