@@ -1,6 +1,10 @@
 //app.js
 App({
   onLaunch: function () {
+    //Bmob初始化
+    var Bmob = require('utils/bmob.js');
+    console.log("执行了onLaunch")
+    Bmob.initialize("550bc189278372930cc6878c84e95685", "4b0470276a4a79e74865c9aefd07aaac");
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())

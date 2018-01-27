@@ -15,6 +15,12 @@ Page({
       url: '../logs/logs'
     })
   },
+  //调往测试页面
+  clickToTestPage: function() {
+    wx.navigateTo({
+      url: '../testpage/testpage'
+    })
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
@@ -42,6 +48,7 @@ Page({
         }
       })
     }
+   
   },
   getUserInfo: function(e) {
     console.log(e)

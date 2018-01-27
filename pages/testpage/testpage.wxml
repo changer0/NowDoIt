@@ -1,2 +1,4 @@
 <!--pages/testpage/testpage.wxml-->
-<text>pages/testpage/testpage.wxml</text>
+<button bindtap='savedata'>保存数据</button>
+ <button bindtap='getdata'>获取数据</button>
+  <text>{{bmobdata}}</text>
