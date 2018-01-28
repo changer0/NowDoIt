@@ -1,17 +1,17 @@
 {
   "pages": [
-    
-    "pages/applylist/applaylist",
     "pages/index/index",
+    "pages/input/input",
+    "pages/applylist/applylist",
     "pages/logs/logs",
     "pages/testpage/testpage",
     "pages/applydetail/applydetail"
-    
+   
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "NowDoIt",
     "navigationBarTextStyle": "black"
   }
 }

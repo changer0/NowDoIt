@@ -7,8 +7,27 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  
+  <view  wx:if="{{!hasUserType}}" class='jumpList'>
+    <radio-group bindchange='userTypeChange'>
+      <radio value='approval' checked='true'>审批人</radio>
+      <radio value='apply'>申请人</radio>
+    </radio-group>
+    <input bindinput='getTouser' placeholder="请关注Bmob后端云服务平台后回复openId获取"/>
+    <input bindinput='getToName' placeholder="请填写你的联系人"/>
+    <button bindtap='submit'>提交</button>
   </view>
-  <button bindtap='clickToTestPage'>跳转到测试页面</button>
+  <block wx:else>
+    <view>
+      <text>当前用户类型: {{userType}}</text>
+    </view>
+    <view>
+      <view class='jumpList'>
+      <!-- <button bindtap='clickToTestPage' class='jumpListItem'>跳转到测试页面</button> -->
+      <navigator class='jumpListItem' url= '../input/input' wx:if="{{userType !== '审批人'}}"><button>申请表</button></navigator>
+      <navigator class='jumpListItem' url= '../applylist/applylist'><button>流程申请列表</button></navigator>
+    </view>
+    </view>
+  </block>
+
 </view>

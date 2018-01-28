@@ -11,11 +11,23 @@
   margin: 20rpx;
   border-radius: 50%;
 }
-
 .userinfo-nickname {
   color: #aaa;
 }
-
 .usermotto {
   margin-top: 200px;
+}
+.jumpList {
+  margin-bottom: 500rpx;
+   margin-top: 20px;
+}
+.jumpListItem {
+  margin-top: 10rpx;
+}
+
+button{
+  margin: 0;
+}
+input {
+  margin: 20px;
 }
