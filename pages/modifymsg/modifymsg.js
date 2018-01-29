@@ -15,7 +15,6 @@ Page({
     touser:'',
     toName:''
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -40,6 +39,8 @@ Page({
       })
       inputUserType = 'approval';
     }
+    inputTouser = '';
+    inputToName = '';
   
   },
   getTouser:function(e) {
@@ -52,36 +53,33 @@ Page({
     inputUserType = e.detail.value;
   },
   submit:function() {
+
+    if (inputTouser === '') {
+      inputTouser = oaUser.touser;
+    }
+    if (inputToName === '') {
+      inputToName = oaUser.toName;
+    }
     console.log("inputTouser => " + inputTouser);
     console.log("inputToName => " + inputToName);
     console.log("inputUserType => " + inputUserType);
-    if (inputTouser === '' || inputToName === '') {
-      inputTouser = oaUser.touser;
-      inputToName = oaUser.toName;
-    }
-    
+
     var OaUser = Bmob.Object.extend("oaUser");
     var query = new Bmob.Query(OaUser);
     query.get(oaUser.id, {
       success:function(result) {
-        result.set('touser', inputTouser);
-        result.set('userType', inputUserType);
-        result.set('toName', inputToName);
+        if (inputTouser) result.set('touser', inputTouser);
+        if (inputUserType) result.set('userType', inputUserType);
+        if (inputToName) result.set('toName', inputToName);
         result.save();
         wx.showToast({
           title: '修改成功',
           icon: 'success',
           duration: 1000
         })
-        inputTouser = '';
-        inputToName = '';
-        inputUserType = '';
       },
       error: function (error) {
         console.log("提交失败")
-        inputTouser = '';
-        inputToName = '';
-        inputUserType = '';
       }
     })
 

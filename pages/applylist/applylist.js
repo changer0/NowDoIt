@@ -1,5 +1,6 @@
 // pages/applylist/applylist.js
 var app = getApp();
+var Bmob = require('../../utils/bmob.js');
 Page({
 
   /**
@@ -22,7 +23,6 @@ Page({
   onShow: function () {
     
     var that = this;
-    var Bmob = require('../../utils/bmob.js');
     var ApplyInfo = Bmob.Object.extend("applyInfo");
 
     var query1 = new Bmob.Query(ApplyInfo);
@@ -53,6 +53,7 @@ Page({
                 applyTime: object.get('applyTime'),
                 toName: object.get('toName'),
                 state: object.get('state'),
+                id: object.id,
                 url: '../applydetail/applydetail?' +
                 'name=' + object.get('name') + '&' +
                 'applyContent=' + object.get('applyContent') + '&' +
@@ -86,5 +87,34 @@ Page({
       // Do something when catch error
       console.log("出错了");
     }
+  },
+  delItem: function (event) {
+    var that = this;
+    console.log(event.currentTarget.dataset.curId);
+
+    wx.showModal({
+      title: '提示',
+      content: '确认删除吗？',
+      success: function (res) {
+        if (res.confirm) {
+          var ApplyInfo = Bmob.Object.extend("applyInfo");
+          var applyInfo = new ApplyInfo();
+          applyInfo.set('objectId', event.currentTarget.dataset.curId);
+          applyInfo.destroy({
+            success: function (myObject) {
+              // 删除成功
+              console.log('删除成功');
+              that.onShow();
+            },
+            error: function (myObject, error) {
+              // 删除失败
+              console.log('删除失败');
+            }
+          });
+        }
+      }
+    })
+
+
   }
 })

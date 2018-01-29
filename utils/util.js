@@ -107,9 +107,6 @@ const sendMessageToSelf = msg => {
       icon: 'success',
       duration: 1000
     })
-    wx.navigateBack({
-    })
-    
   }, function (err) {
     common.showTip('失败' + err);
   });
