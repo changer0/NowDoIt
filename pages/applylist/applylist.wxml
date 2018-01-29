@@ -4,10 +4,14 @@
 	    <view class="kind-list">
 	      <block wx:for-items="{{applylist}}" wx:key="{{applylist.id}}">
 	        <view class="kind-list-item">
-              <view class="kind-list-item-hd}" >
-                  <text class="kind-list-text">{{applylist[index].applyContent}}</text>
-                  <text class="kind-list-right-text-nor" >{{applylist[index].state}}</text>
+            <navigator url='{{applylist[index].url}}'>
+                <view class="kind-list-item-hd}">
+                  <text class="kind-list-text">{{applylist[index].name}}:{{applylist[index].applyContent}}</text>
+                  <text class="kind-list-text-time">{{applylist[index].applyTime}}</text>
+                  <text class="{{styleClass[index]}}" >{{applylist[index].state}}</text>
                 </view>
+            </navigator>
+
           </view>
 	      </block>
 	    </view>

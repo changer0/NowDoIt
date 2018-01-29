@@ -89,9 +89,7 @@
 .kind-list-item:first-child {
   margin-top: 10;
 }
-.kind-list-text{
-  flex: 1;
-}
+
 .kind-list-right-text-nor {
   font-size: 30rpx;
   width:100rpx;
@@ -131,4 +129,12 @@
 }
 .kind-list-item-bd-show {
   height: auto;
+}
+.kind-list-text-time {
+  font-size: 10px;
+  flex: 1;
+}
+.kind-list-text{
+  flex: 1;
+  font-size: 15px;
 }

@@ -1,2 +1,48 @@
 <!--pages/applydetail/applydetail.wxml-->
-<text>pages/applydetail/applydetail.wxml</text>
+<view class='index'>
+  <view class="index-bd">
+	    <view class="kind-list">
+	    
+        <view class="kind-list-item">
+              <view class="kind-list-item-hd}">
+                <text class="kind-list-text">申请人:</text>
+                <text class="kind-list-text-time">{{name}}</text>
+              </view>
+        </view>
+        <view class="kind-list-item">
+              <view class="kind-list-item-hd}">
+                <text class="kind-list-text">申请内容:</text>
+                <text class="kind-list-text-time">{{applyContent}}</text>
+              </view>
+        </view>
+        <view class="kind-list-item">
+              <view class="kind-list-item-hd}">
+                <text class="kind-list-text">申请状态:</text>
+                <text class="kind-list-text-time">{{state}}</text>
+              </view>
+        </view>   
+        <view class="kind-list-item">
+              <view class="kind-list-item-hd}">
+                <text class="kind-list-text">申请时间:</text>
+                <text class="kind-list-text-time">{{applyTime}}</text>
+              </view>
+        </view>     
+        <view class="kind-list-item">
+              <view class="kind-list-item-hd}">
+                <text class="kind-list-text">审核人:</text>
+                <text class="kind-list-text-time">{{toName}}</text>
+              </view>
+        </view>
+        <block wx:if='{{hasPermission}}'>
+          <block wx:if='{{isNeedSubmit}}'>
+            <button class="kind-list-item" bindtap='clickPass'>通过</button> 
+            <button class="kind-list-item" bindtap='clickReject'>拒绝</button>            
+          </block>
+          <block wx:else>
+            <text>已审核完毕</text>        
+          </block>                      
+        </block>                         
+	    </view>
+	  </view>
+</view>
+

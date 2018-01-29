@@ -145,17 +145,24 @@ const getOAUser = function(page) {
   query.find({
     success: function (results) {
       console.log("共查询到 " + results.length + " 条记录");
-      // 循环处理查询到的数据
-      for (var i = 0; i < results.length; i++) {
-        var object = results[i];
-        console.log(object.id + ' - ' + object.get('title'));
-      }
+    
       if(results.length > 0) {
         var userType = '';
         if(results[0].get('userType') === 'approval') {
           userType = "审批人";
         } else {
           userType = "申请人";
+        }
+        var data = {
+          'name': results[0].get('name'),
+          'userType': results[0].get('userType'),
+          'touser': results[0].get('touser'),
+          'toName': results[0].get('toName'),
+          'id': results[0].id
+        }
+        try {
+          wx.setStorageSync(page.data.userInfo.nickName,data);
+        } catch (e) {
         }
         page.setData({
           hasUserType: true,

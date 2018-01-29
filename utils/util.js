@@ -28,7 +28,7 @@ const sendMessageToLeader = msg => {
   var temp = {
     "touser": msg.touser,
     "template_id": "aNNNmi7WK4kohleWhCkDRKJiHOZnIpkrhXx5XPx4dx0",
-    "url": "https://www.baidu.com",
+    "url": "https://open.weixin.qq.com/sns/getexpappinfo?appid=wx2c7d4331d08259b5&path=pages%2Findex%2Findex.html&key=&uin=&scene=4&version=26060133#wechat-redirect",
     "data": {
       "first": {
         "value": msg.notify,

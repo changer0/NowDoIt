@@ -13,7 +13,7 @@ Page({
   data: {
     applyTime: '',
     toName: '路新艺',
-    applyName: ''
+    name: ''
   },
 
   /**
@@ -44,7 +44,7 @@ Page({
     })
   
     this.setData({
-      applyName: app.globalData.userInfo.nickName
+      name: app.globalData.userInfo.nickName
     })
   },
 
@@ -113,7 +113,7 @@ Page({
 
     var ApplyInfo = Bmob.Object.extend("applyInfo");
     var applyInfo = new ApplyInfo();
-    applyInfo.set('applyName', app.globalData.userInfo.nickName);
+    applyInfo.set('name', app.globalData.userInfo.nickName);
     applyInfo.set('applyContent', applyContent);
     applyInfo.set('applyTime', applyTime);
     applyInfo.set('toName', this.data.toName);
@@ -173,14 +173,12 @@ const getApproval = function () {
                 remark: applyContent
               }
               util.sendMessageToLeader(msg);
-              applyContent = '';
             } else {
               wx.showModal({
                 content: "抱歉,没有查询到对应联系人",
                 showCancel: false,
                 confirmText: "确定"
               })
-              applyContent = '';
             }
           },
           error: function (error) {
@@ -190,7 +188,6 @@ const getApproval = function () {
               showCancel: false,
               confirmText: "确定"
             })
-            applyContent = '';
           }
         });
       } 
