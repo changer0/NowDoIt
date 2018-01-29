@@ -1,5 +1,6 @@
 // pages/applydetail/applydetail.js
 var Bmob = require('../../utils/bmob.js');
+var util = require('../../utils/util.js');
 var app = getApp();
 var infoId = '';
 Page({
@@ -46,49 +47,6 @@ Page({
       hasPermission: hasPermission
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
   /**
    * 用户点击右上角分享
    */
@@ -104,14 +62,38 @@ Page({
       query.get(infoId, {
         success: function (result) {
           // 回调中可以取得这个 GameScore 对象的一个实例，然后就可以修改它了
-          result.set('state', '已通过');
-          result.save();
-          this.setData({
-            state: '已通过',
-            isNeedSubmit: false,
-            hasPermission: true
-          })
-          // The object was retrieved successfully.
+          if(result) {
+            result.set('state', '已通过');
+            result.save();
+            that.setData({
+              state: '已通过',
+              isNeedSubmit: false,
+              hasPermission: true
+            })
+            var OaUser = Bmob.Object.extend("oaUser");
+            var queryNotifyUser = new Bmob.Query(OaUser);
+            queryNotifyUser.equalTo('name', result.get('name'));
+            queryNotifyUser.find({
+              success: function (results) {
+                if (results.length > 0) {
+                  console.log("获取到需要发送的touser=> " + results[0].get('touser'));
+                  //发送msg给申请人
+                  var msg = {
+                    touser: results[0].get('touser'),
+                    notify: '您的申请已审批',
+                    name: app.globalData.userInfo.nickName,
+                    state: '已通过',
+                    time: util.formatTime(new Date()),
+                    remark: that.data.applyContent
+                  }
+                  util.sendMessageToSelf(msg);
+                }
+              },
+              error: function (error) {
+              }
+            });
+          }
+          
         },
         error: function (object, error) {
 
@@ -135,7 +117,30 @@ Page({
             isNeedSubmit: false,
             hasPermission: true
           })
-          // The object was retrieved successfully.
+
+          var OaUser = Bmob.Object.extend("oaUser");
+          var queryNotifyUser = new Bmob.Query(OaUser);
+          queryNotifyUser.equalTo('name', result.get('name'));
+          queryNotifyUser.find({
+            success: function (results) {
+              if (results.length > 0) {
+                console.log("获取到需要发送的touser=> " + results[0].get('touser'));
+                //发送msg给申请人
+                var msg = {
+                  touser: results[0].get('touser'),
+                  notify: '您的申请已审批',
+                  name: app.globalData.userInfo.nickName,
+                  state: '已拒绝',
+                  time: util.formatTime(new Date()),
+                  remark: that.data.applyContent
+                }
+                util.sendMessageToSelf(msg);
+              }
+            },
+            error: function (error) {
+            }
+          });
+
         },
         error: function (object, error) {
 

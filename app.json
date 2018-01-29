@@ -5,8 +5,8 @@
     "pages/applylist/applylist",
     "pages/logs/logs",
     "pages/testpage/testpage",
-    "pages/applydetail/applydetail"
-   
+    "pages/applydetail/applydetail",
+    "pages/modifymsg/modifymsg"
   ],
   "window": {
     "backgroundTextStyle": "light",

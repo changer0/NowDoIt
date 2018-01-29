@@ -1,0 +1,14 @@
+/**index.wxss**/
+.jumpList {
+   margin-top: 20px;
+}
+.jumpListItem {
+  margin-top: 10rpx;
+}
+
+button{
+  margin: 0;
+}
+input {
+  margin: 20px;
+}

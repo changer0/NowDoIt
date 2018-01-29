@@ -1,0 +1,10 @@
+<!--pages/modifymsg/modifymsg.wxml-->
+  <view class='jumpList'>
+    <radio-group bindchange='userTypeChange'>
+      <radio value='approval' checked='{{isApproval}}'>审批人</radio>
+      <radio value='apply' checked='{{isApply}}'>申请人</radio>
+    </radio-group>
+    <input bindinput='getTouser' placeholder="{{touser}}"/>
+    <input bindinput='getToName' placeholder="{{toName}}"/>
+    <button bindtap='submit'>提交</button>
+  </view>

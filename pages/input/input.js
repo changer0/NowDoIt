@@ -47,55 +47,6 @@ Page({
       name: app.globalData.userInfo.nickName
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  },
   //下面是自定义的函数
   getApplyContent: function(e) {
     applyContent = e.detail.value;
@@ -104,7 +55,7 @@ Page({
     var that = this;
     if (applyContent === '') {
       wx.showModal({
-        content: "申请人姓名和内容不能为空",
+        content: "申请内容不能为空",
         showCancel: false,
         confirmText: "确定"
       })
@@ -123,25 +74,21 @@ Page({
         // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
         console.log("数据保存成功, objectId:" + result.id);
 
-        getApproval();
+        getApproval(applyContent);
       },
       error: function (result, error) {
         // 添加失败
         console.log('提交失败');
-        wx.showModal({
-          content: "提交失败，可能是由于网络原因，请重试",
-          showCancel: false,
-          confirmText: "确定"
-        })
       }
     });
     console.log(applyContent);
     console.log(applyTime);
+    applyContent = '';//必须置空
   }
 })
 
 
-const getApproval = function () {
+const getApproval = function (applyContent) {
   var oaUser = Bmob.Object.extend("oaUser");
   //创建查询对象，入口参数是对象类的实例
   var oaUserQuery = new Bmob.Query(oaUser);
@@ -174,20 +121,10 @@ const getApproval = function () {
               }
               util.sendMessageToLeader(msg);
             } else {
-              wx.showModal({
-                content: "抱歉,没有查询到对应联系人",
-                showCancel: false,
-                confirmText: "确定"
-              })
             }
           },
           error: function (error) {
             console.log("查询失败: " + error.code + " " + error.message);
-            wx.showModal({
-              content: "抱歉,没有查询到对应联系人",
-              showCancel: false,
-              confirmText: "确定"
-            })
           }
         });
       } 

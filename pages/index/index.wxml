@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+<view>
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
@@ -21,12 +21,11 @@
     <view>
       <text>当前用户类型: {{userType}}</text>
     </view>
-    <view>
-      <view class='jumpList'>
+    <view class='jumpList'>
       <!-- <button bindtap='clickToTestPage' class='jumpListItem'>跳转到测试页面</button> -->
       <navigator class='jumpListItem' url= '../input/input' wx:if="{{userType !== '审批人'}}"><button>申请表</button></navigator>
       <navigator class='jumpListItem' url= '../applylist/applylist'><button>流程申请列表</button></navigator>
-    </view>
+       <navigator class='jumpListItem' url= '../modifymsg/modifymsg'><button>修改信息</button></navigator>
     </view>
   </block>
 

@@ -1040,3 +1040,7 @@ icon {
   color: #09BB07;
   white-space: nowrap;
 }
+
+.item_input {
+  margin-left: 10px;
+}

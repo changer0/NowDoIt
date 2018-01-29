@@ -44,13 +44,16 @@ Page({
     // util.sendMessageToLeader(msg);
   },
   onLoad: function () {
+    
+  },
+  onShow: function() {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
       getOAUser(this);
-    } else if (this.data.canIUse){
+    } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -100,10 +103,10 @@ Page({
 
     var that = this;
     if (touser === '' || touser === '' || toName === '') {
-      wx.showModal({
-        content: "openId和联系人不能为空",
-        showCancel: false,
-        confirmText: "确定"
+      wx.showToast({
+        title: 'openId和联系人不能为空',
+        icon: 'none',
+        duration: 1000
       })
       return;
     }
