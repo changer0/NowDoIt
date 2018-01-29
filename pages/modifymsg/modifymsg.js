@@ -30,6 +30,7 @@ Page({
         touser:oaUser.touser,
         toName: oaUser.toName
       })
+      inputUserType = 'apply';
     } else {
       this.setData({
         isApproval: true,
@@ -37,6 +38,7 @@ Page({
         touser: oaUser.touser,
         toName: oaUser.toName
       })
+      inputUserType = 'approval';
     }
   
   },
@@ -76,6 +78,7 @@ Page({
         inputUserType = '';
       },
       error: function (error) {
+        console.log("提交失败")
         inputTouser = '';
         inputToName = '';
         inputUserType = '';

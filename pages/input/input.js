@@ -83,7 +83,6 @@ Page({
     });
     console.log(applyContent);
     console.log(applyTime);
-    applyContent = '';//必须置空
   }
 })
 
@@ -120,6 +119,7 @@ const getApproval = function (applyContent) {
                 remark: applyContent
               }
               util.sendMessageToLeader(msg);
+              applyContent = '';//必须置空
             } else {
             }
           },

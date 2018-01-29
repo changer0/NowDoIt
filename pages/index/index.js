@@ -120,21 +120,16 @@ Page({
       success: function (result) {
         // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
         console.log("数据保存成功, objectId:" + result.id);
-        wx.showModal({
-          content: "提交成功",
-          showCancel: false,
-          confirmText: "确定"
+        wx.showToast({
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000
         })
         getOAUser(that);
       },
       error: function (result, error) {
         // 添加失败
         console.log('提交失败');
-        wx.showModal({
-          content: "提交失败，可能是由于网络原因，请重试",
-          showCancel: false,
-          confirmText: "确定"
-        })
       }
     });
   }

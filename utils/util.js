@@ -53,12 +53,11 @@ const sendMessageToLeader = msg => {
   Bmob.sendMasterMessage(temp).then(function (obj) {
     console.log('发送成功');
     wx.showToast({
-      title: '申请成功，已通知审批人',
+      title: '申请已发出',
       icon: 'success',
       duration: 1000
     })
-    wx.navigateBack({
-    })
+
   }, function (err) {
     common.showTip('失败' + err);
   });
@@ -104,7 +103,7 @@ const sendMessageToSelf = msg => {
   Bmob.sendMasterMessage(temp).then(function (obj) {
     console.log('审批成功');
     wx.showToast({
-      title: '审批成功，已通知申请人',
+      title: '审批成功',
       icon: 'success',
       duration: 1000
     })
