@@ -26,7 +26,7 @@ Page({
     var ApplyInfo = Bmob.Object.extend("applyInfo");
 
     var query1 = new Bmob.Query(ApplyInfo);
-    var query2 = new Bmob.Query(ApplyInfo);
+    //var query2 = new Bmob.Query(ApplyInfo);
     //拿到数据
     try {
       var bombOAuser = wx.getStorageSync(app.globalData.userInfo.nickName);
@@ -34,13 +34,20 @@ Page({
         console.log("bombOAuser.name" + bombOAuser.name);
         console.log("bombOAuser.toName" + bombOAuser.toName);
         // Do something with return value
-        query1.equalTo("name", bombOAuser.name);
-        query2.equalTo("name", bombOAuser.toName);
-        var orQuery = Bmob.Query.or(query1, query2);
-        orQuery.descending('createdAt');
+        //query1.equalTo("name", bombOAuser.name);
+        //query2.equalTo("name", bombOAuser.toName);
+        //var orQuery = Bmob.Query.or(query1, query2);
+        if(bombOAuser.userType === 'apply') {
+          //申请人
+          query1.equalTo('name', bombOAuser.name);
+        } else {
+          //审批人
+          query1.equalTo('toName', bombOAuser.name);
+        }
+        query1.descending('createdAt');
 
         // 查询所有数据
-        orQuery.find({
+        query1.find({
           success: function (results) {
             var applylist = Array(results.length);
             var styleClass = Array(results.length);
