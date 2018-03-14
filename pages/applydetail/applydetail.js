@@ -3,6 +3,8 @@ var Bmob = require('../../utils/bmob.js');
 var util = require('../../utils/util.js');
 var app = getApp();
 var infoId = '';
+var approvalResultType = 'agree';
+var approvalComment = '';
 Page({
   /**
    * 页面的初始数据
@@ -14,7 +16,8 @@ Page({
     toName: '',
     state: '',
     isNeedSubmit:false,
-    hasPermission:false
+    hasPermission:false,
+    approvalComment: ''
   },
 
   /**
@@ -36,7 +39,9 @@ Page({
     } else {
       hasPermission = false;
     }
-    
+    if(options.approvalComment === 'undefined') {
+      options.approvalComment = '';
+    }
     this.setData({
       name: options.name,
       applyContent: options.applyContent,
@@ -44,7 +49,8 @@ Page({
       toName: options.toName,
       state: options.state,
       isNeedSubmit: isNeedSubmit,
-      hasPermission: hasPermission
+      hasPermission: hasPermission,
+      approvalComment : options.approvalComment
     })
   },
   /**
@@ -53,24 +59,43 @@ Page({
   onShareAppMessage: function () {
   
   },
-  clickPass:function() {
+  //获取审批的结果
+  approvalResultType: function (e) {
+    approvalResultType = e.detail.value;
+  },
+  //获取批语
+  approvalComment: function (e) {
+    approvalComment = e.detail.value;
+  },
+  //点击提交
+  commitResult: function() {
+    console.log("approvalResultType : " + approvalResultType);
+    console.log("approvalComment : " + approvalComment);
     var that = this;
-    if (infoId) {
+    if(infoId) {
       var ApplyInfo = Bmob.Object.extend("applyInfo");
       var query = new Bmob.Query(ApplyInfo);
-      // 这个 id 是要修改条目的 objectId，你在这个存储并成功时可以获取到，请看前面的文档
       query.get(infoId, {
         success: function (result) {
-          // 回调中可以取得这个 GameScore 对象的一个实例，然后就可以修改它了
           if(result) {
+            var state = '';
+            if (approvalResultType === 'agree') {
+              state = '已通过';
+            } else {
+              state = '已拒绝';
+            }
             result.set('state', '已通过');
+            result.set('comment', approvalComment);
             result.save();
             that.setData({
               state: '已通过',
               isNeedSubmit: false,
-              hasPermission: true
+              hasPermission: true,
+              approvalComment: approvalComment
             })
-            var OaUser = Bmob.Object.extend("oaUser");
+
+          //给申请人发送通知
+          var OaUser = Bmob.Object.extend("oaUser");
             var queryNotifyUser = new Bmob.Query(OaUser);
             queryNotifyUser.equalTo('name', result.get('name'));
             queryNotifyUser.find({
@@ -84,7 +109,7 @@ Page({
                     name: app.globalData.userInfo.nickName,
                     state: '已通过',
                     time: util.formatTime(new Date()),
-                    remark: that.data.applyContent
+                    remark: approvalComment
                   }
                   util.sendMessageToSelf(msg);
                 }
@@ -92,60 +117,15 @@ Page({
               error: function (error) {
               }
             });
+
+
           }
-          
         },
         error: function (object, error) {
 
         }
-      });
-    }
-  },
-  clickReject:function() {
-    var that = this;
-    if (infoId) {
-      var ApplyInfo = Bmob.Object.extend("applyInfo");
-      var query = new Bmob.Query(ApplyInfo);
-      // 这个 id 是要修改条目的 objectId，你在这个存储并成功时可以获取到，请看前面的文档
-      query.get(infoId, {
-        success: function (result) {
-          // 回调中可以取得这个 GameScore 对象的一个实例，然后就可以修改它了
-          result.set('state', '已拒绝');
-          result.save();
-          that.setData({
-            state: '已拒绝',
-            isNeedSubmit: false,
-            hasPermission: true
-          })
 
-          var OaUser = Bmob.Object.extend("oaUser");
-          var queryNotifyUser = new Bmob.Query(OaUser);
-          queryNotifyUser.equalTo('name', result.get('name'));
-          queryNotifyUser.find({
-            success: function (results) {
-              if (results.length > 0) {
-                console.log("获取到需要发送的touser=> " + results[0].get('touser'));
-                //发送msg给申请人
-                var msg = {
-                  touser: results[0].get('touser'),
-                  notify: '您的申请已审批',
-                  name: app.globalData.userInfo.nickName,
-                  state: '已拒绝',
-                  time: util.formatTime(new Date()),
-                  remark: that.data.applyContent
-                }
-                util.sendMessageToSelf(msg);
-              }
-            },
-            error: function (error) {
-            }
-          });
-
-        },
-        error: function (object, error) {
-
-        }
-      });
+      })
     }
   }
 })

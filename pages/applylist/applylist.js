@@ -62,6 +62,7 @@ Page({
                 state: object.get('state'),
                 id: object.id,
                 url: '../applydetail/applydetail?' +
+                'approvalComment=' + object.get('comment') + '&' +
                 'name=' + object.get('name') + '&' +
                 'applyContent=' + object.get('applyContent') + '&' +
                 'applyTime=' + object.get('applyTime') + '&' +

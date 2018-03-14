@@ -35,13 +35,25 @@
         </view>
         <block wx:if='{{hasPermission}}'>
           <block wx:if='{{isNeedSubmit}}'>
-            <button class="kind-list-item" bindtap='clickPass'>通过</button> 
-            <button class="kind-list-item" bindtap='clickReject'>拒绝</button>            
+
+            <!--通过或拒绝  -->
+            <radio-group bindchange='approvalResultType'>
+              <radio value='agree' checked='{{true}}'>同意</radio>
+              <radio value='refuse' checked='{{false}}'>拒绝</radio>
+            </radio-group>
+            <view class="kind-list-item-hd" >
+              <input bindinput='approvalComment' placeholder="点击此处输入批语"/>
+            </view>
+            
+            <button class="kind-list-item" bindtap='commitResult'>提交</button>          
           </block>
           <block wx:else>
-            <text>已审核完毕</text>        
-          </block>                      
-        </block>                         
+          <text class="kind-list-text">已审核完毕</text>
+          </block>                     
+        </block>   
+        <view class="kind-list-item" >
+              <text class="kind-list-item-hd">批语: {{approvalComment}}</text> 
+        </view>      
 	    </view>
 	  </view>
 </view>
